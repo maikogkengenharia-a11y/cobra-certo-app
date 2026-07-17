@@ -8,31 +8,53 @@
   <meta name="apple-mobile-web-app-title" content="Cobra Certo">
   <meta name="theme-color" content="#F5C400">
   <link rel="manifest" href="/manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
   <title>Cobra Certo — App</title>
   <style>
     :root {
       --amarelo: #F5C400;
       --amarelo-escuro: #D4A800;
-      --laranja: #E05C00;
+      --laranja: #C94F00;
       --azul: #0D1B2A;
-      --azul-meio: #1A2E42;
-      --azul-claro: #243B55;
+      --azul-meio: #152333;
+      --azul-claro: #1E3147;
       --branco: #FFFFFF;
-      --cinza: #8A9BB0;
-      --cinza-claro: #C5D0DC;
+      --cinza: #6B7E94;
+      --cinza-claro: #A0B0C0;
       --verde: #22C55E;
       --vermelho: #EF4444;
       --fundo: #0A1520;
+      --faixa: repeating-linear-gradient(
+        -45deg,
+        var(--amarelo) 0px,
+        var(--amarelo) 10px,
+        var(--azul) 10px,
+        var(--azul) 20px
+      );
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-family: 'Barlow', -apple-system, sans-serif;
       background: var(--fundo);
       color: var(--branco);
       min-height: 100dvh;
       overscroll-behavior: none;
+    }
+
+    /* ── ÍCONE SVG CAPACETE ── */
+    .svg-capacete {
+      width: 44px;
+      height: 44px;
+    }
+
+    /* ── FAIXA CANTEIRO ── */
+    .faixa {
+      height: 8px;
+      background: var(--faixa);
+      flex-shrink: 0;
     }
 
     /* ── TELA DE ACESSO ── */
@@ -40,41 +62,53 @@
       min-height: 100dvh;
       display: flex;
       flex-direction: column;
+      background: var(--azul);
+    }
+
+    .acesso-faixa { height: 8px; background: var(--faixa); }
+
+    .acesso-corpo {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 32px 24px;
-      background: var(--fundo);
+      padding: 40px 24px;
     }
 
     .acesso-logo {
-      width: 72px;
-      height: 72px;
+      width: 80px;
+      height: 80px;
       background: var(--amarelo);
-      border-radius: 20px;
+      border-radius: 18px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 36px;
-      margin-bottom: 28px;
-      box-shadow: 0 0 40px rgba(245,196,0,0.3);
+      margin-bottom: 24px;
+      box-shadow: 0 8px 32px rgba(245,196,0,0.25);
     }
 
     .acesso-titulo {
-      font-size: 28px;
-      font-weight: 800;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 42px;
+      font-weight: 900;
       letter-spacing: -0.5px;
       text-align: center;
+      color: var(--branco);
+      line-height: 1;
       margin-bottom: 8px;
+      text-transform: uppercase;
     }
 
     .acesso-titulo span { color: var(--amarelo); }
 
     .acesso-sub {
       font-size: 15px;
-      color: var(--cinza);
+      color: var(--cinza-claro);
       text-align: center;
       margin-bottom: 40px;
       line-height: 1.5;
+      max-width: 300px;
     }
 
     .acesso-form {
@@ -86,12 +120,11 @@
     }
 
     .acesso-label {
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.5px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
       color: var(--cinza-claro);
       text-transform: uppercase;
-      margin-bottom: -4px;
     }
 
     .acesso-input {
@@ -99,9 +132,10 @@
       padding: 16px 18px;
       background: var(--azul-meio);
       border: 2px solid var(--azul-claro);
-      border-radius: 14px;
+      border-radius: 10px;
       color: var(--branco);
       font-size: 16px;
+      font-family: 'Barlow', sans-serif;
       outline: none;
       transition: border-color 0.2s;
     }
@@ -114,11 +148,13 @@
       padding: 17px;
       background: var(--amarelo);
       color: var(--azul);
-      font-size: 16px;
-      font-weight: 800;
-      letter-spacing: 0.3px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
       border: none;
-      border-radius: 14px;
+      border-radius: 10px;
       cursor: pointer;
       transition: background 0.15s, transform 0.1s;
     }
@@ -130,7 +166,7 @@
       background: rgba(239,68,68,0.1);
       border: 1px solid rgba(239,68,68,0.3);
       color: #FCA5A5;
-      border-radius: 10px;
+      border-radius: 8px;
       padding: 12px 16px;
       font-size: 14px;
       line-height: 1.4;
@@ -140,28 +176,26 @@
     .acesso-erro.visivel { display: block; }
 
     .acesso-rodape {
-      margin-top: 32px;
+      margin-top: 24px;
       text-align: center;
       font-size: 13px;
       color: var(--cinza);
     }
 
-    .acesso-rodape a { color: var(--amarelo); text-decoration: none; }
+    .acesso-rodape a { color: var(--amarelo); text-decoration: none; font-weight: 600; }
 
     /* ── APP PRINCIPAL ── */
     #tela-app { display: none; flex-direction: column; min-height: 100dvh; }
 
     /* Header */
     .app-header {
-      background: var(--azul);
-      padding: 16px 20px 14px;
+      background: var(--amarelo);
+      padding: 0 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      border-bottom: 1px solid var(--azul-claro);
+      height: 56px;
+      flex-shrink: 0;
     }
 
     .header-logo {
@@ -170,62 +204,63 @@
       gap: 10px;
     }
 
-    .header-icone {
-      width: 36px;
-      height: 36px;
-      background: var(--amarelo);
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-    }
-
     .header-nome {
-      font-size: 17px;
-      font-weight: 800;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 22px;
+      font-weight: 900;
       letter-spacing: -0.3px;
+      color: var(--azul);
+      text-transform: uppercase;
     }
 
-    .header-nome span { color: var(--amarelo); }
+    .header-nome span { color: var(--laranja); }
 
     .btn-sair {
-      background: none;
-      border: 1px solid var(--azul-claro);
-      color: var(--cinza);
+      background: rgba(13,27,42,0.15);
+      border: none;
+      color: var(--azul);
       padding: 6px 14px;
-      border-radius: 8px;
+      border-radius: 6px;
       font-size: 13px;
+      font-weight: 700;
       cursor: pointer;
     }
+
+    /* Faixa abaixo do header */
+    .header-faixa { height: 6px; background: var(--faixa); flex-shrink: 0; }
 
     /* Nav tabs */
     .app-nav {
       background: var(--azul);
-      border-bottom: 1px solid var(--azul-claro);
+      border-bottom: 2px solid var(--azul-claro);
       display: flex;
       overflow-x: auto;
       scrollbar-width: none;
-      padding: 0 12px;
-      gap: 4px;
+      padding: 0 8px;
+      gap: 2px;
+      flex-shrink: 0;
     }
 
     .app-nav::-webkit-scrollbar { display: none; }
 
     .nav-tab {
-      padding: 12px 16px;
+      padding: 12px 14px;
+      font-family: 'Barlow', sans-serif;
       font-size: 13px;
-      font-weight: 600;
+      font-weight: 700;
       color: var(--cinza);
       border: none;
       background: none;
       cursor: pointer;
       white-space: nowrap;
-      border-bottom: 2px solid transparent;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -2px;
       transition: color 0.15s, border-color 0.15s;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
     }
 
     .nav-tab.ativo {
@@ -237,7 +272,8 @@
     .app-conteudo {
       flex: 1;
       overflow-y: auto;
-      padding: 20px 16px 100px;
+      padding: 16px 14px 100px;
+      background: var(--fundo);
     }
 
     /* Seções */
@@ -246,43 +282,43 @@
 
     /* Cards */
     .card {
-      background: var(--azul-meio);
+      background: var(--azul);
       border: 1px solid var(--azul-claro);
-      border-radius: 16px;
-      padding: 20px;
-      margin-bottom: 16px;
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 14px;
     }
 
     .card-titulo {
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.5px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 1px;
       text-transform: uppercase;
       color: var(--amarelo);
       margin-bottom: 16px;
     }
 
     /* Inputs */
-    .campo-grupo {
-      margin-bottom: 14px;
-    }
+    .campo-grupo { margin-bottom: 14px; }
 
     .campo-label {
       font-size: 13px;
       color: var(--cinza-claro);
       margin-bottom: 6px;
       display: block;
-      font-weight: 500;
+      font-weight: 600;
     }
 
     .campo-input {
       width: 100%;
       padding: 13px 16px;
-      background: var(--azul);
+      background: var(--azul-meio);
       border: 1.5px solid var(--azul-claro);
-      border-radius: 10px;
+      border-radius: 8px;
       color: var(--branco);
       font-size: 16px;
+      font-family: 'Barlow', sans-serif;
       outline: none;
       transition: border-color 0.15s;
     }
@@ -290,10 +326,7 @@
     .campo-input:focus { border-color: var(--amarelo); }
     .campo-input::placeholder { color: var(--cinza); font-size: 15px; }
 
-    .campo-prefixo {
-      position: relative;
-    }
-
+    .campo-prefixo { position: relative; }
     .campo-prefixo .prefixo {
       position: absolute;
       left: 14px;
@@ -301,15 +334,13 @@
       transform: translateY(-50%);
       color: var(--cinza);
       font-size: 15px;
-      font-weight: 600;
+      font-weight: 700;
       pointer-events: none;
     }
-
-    .campo-prefixo .campo-input { padding-left: 40px; }
+    .campo-prefixo .campo-input { padding-left: 38px; }
 
     /* Slider */
     .slider-grupo { margin-bottom: 16px; }
-
     .slider-header {
       display: flex;
       justify-content: space-between;
@@ -318,8 +349,9 @@
     }
 
     .slider-valor {
-      font-size: 20px;
-      font-weight: 800;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 24px;
+      font-weight: 900;
       color: var(--amarelo);
     }
 
@@ -334,33 +366,36 @@
 
     input[type=range]::-webkit-slider-thumb {
       -webkit-appearance: none;
-      width: 24px;
-      height: 24px;
+      width: 26px;
+      height: 26px;
       background: var(--amarelo);
       border-radius: 50%;
       cursor: pointer;
+      border: 3px solid var(--azul);
     }
 
     /* Resultado */
     .resultado-box {
-      background: linear-gradient(135deg, var(--amarelo) 0%, var(--amarelo-escuro) 100%);
-      border-radius: 14px;
+      background: var(--amarelo);
+      border-radius: 12px;
       padding: 20px;
       margin-top: 8px;
       text-align: center;
     }
 
     .resultado-label {
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.8px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 1px;
       text-transform: uppercase;
-      color: rgba(10,21,32,0.6);
+      color: rgba(13,27,42,0.55);
       margin-bottom: 4px;
     }
 
     .resultado-valor {
-      font-size: 40px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 48px;
       font-weight: 900;
       color: var(--azul);
       letter-spacing: -1px;
@@ -369,15 +404,16 @@
 
     .resultado-sub {
       font-size: 13px;
-      color: rgba(10,21,32,0.5);
-      margin-top: 6px;
+      font-weight: 600;
+      color: rgba(13,27,42,0.5);
+      margin-top: 4px;
     }
 
     .resultado-detalhe {
-      margin-top: 16px;
-      background: rgba(10,21,32,0.12);
-      border-radius: 10px;
-      padding: 14px 16px;
+      margin-top: 14px;
+      background: rgba(13,27,42,0.12);
+      border-radius: 8px;
+      padding: 12px 14px;
       text-align: left;
     }
 
@@ -385,15 +421,16 @@
       display: flex;
       justify-content: space-between;
       font-size: 13px;
-      color: rgba(10,21,32,0.7);
+      color: rgba(13,27,42,0.65);
       padding: 4px 0;
+      font-weight: 500;
     }
 
     .detalhe-linha.total {
-      border-top: 1px solid rgba(10,21,32,0.15);
+      border-top: 1px solid rgba(13,27,42,0.15);
       margin-top: 6px;
       padding-top: 10px;
-      font-weight: 700;
+      font-weight: 800;
       color: var(--azul);
     }
 
@@ -402,9 +439,12 @@
       width: 100%;
       padding: 15px;
       border: none;
-      border-radius: 12px;
-      font-size: 15px;
-      font-weight: 700;
+      border-radius: 10px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 18px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
       cursor: pointer;
       margin-top: 12px;
       transition: transform 0.1s;
@@ -420,22 +460,23 @@
     .btn-acao.outline {
       background: transparent;
       color: var(--amarelo);
-      border: 1.5px solid var(--amarelo);
+      border: 2px solid var(--amarelo);
     }
 
-    /* Respostas do tá caro */
+    /* Respostas tá caro */
     .resposta-card {
-      background: var(--azul-meio);
+      background: var(--azul);
       border: 1px solid var(--azul-claro);
-      border-radius: 14px;
-      padding: 18px;
+      border-radius: 12px;
+      padding: 16px;
       margin-bottom: 12px;
     }
 
     .resposta-numero {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.5px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.8px;
       color: var(--amarelo);
       text-transform: uppercase;
       margin-bottom: 6px;
@@ -452,8 +493,8 @@
       font-size: 15px;
       line-height: 1.5;
       color: var(--branco);
-      background: var(--azul);
-      border-radius: 10px;
+      background: var(--azul-meio);
+      border-radius: 8px;
       padding: 14px 16px;
       border-left: 3px solid var(--amarelo);
     }
@@ -462,9 +503,10 @@
       background: none;
       border: 1px solid var(--azul-claro);
       color: var(--cinza-claro);
-      padding: 8px 16px;
-      border-radius: 8px;
+      padding: 8px 14px;
+      border-radius: 7px;
       font-size: 13px;
+      font-weight: 600;
       cursor: pointer;
       margin-top: 10px;
       display: flex;
@@ -481,26 +523,23 @@
       align-items: flex-start;
       gap: 14px;
       padding: 14px 16px;
-      background: var(--azul-meio);
+      background: var(--azul);
       border: 1px solid var(--azul-claro);
-      border-radius: 12px;
-      margin-bottom: 10px;
+      border-radius: 10px;
+      margin-bottom: 8px;
       cursor: pointer;
       transition: border-color 0.15s;
       user-select: none;
     }
 
-    .check-item.marcado {
-      border-color: var(--verde);
-      background: rgba(34,197,94,0.06);
-    }
+    .check-item.marcado { border-color: var(--verde); background: rgba(34,197,94,0.06); }
 
     .check-box {
       width: 24px;
       height: 24px;
       min-width: 24px;
       border: 2px solid var(--azul-claro);
-      border-radius: 7px;
+      border-radius: 6px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -508,31 +547,27 @@
       margin-top: 1px;
     }
 
-    .check-item.marcado .check-box {
-      background: var(--verde);
-      border-color: var(--verde);
-    }
-
+    .check-item.marcado .check-box { background: var(--verde); border-color: var(--verde); }
     .check-check { display: none; color: white; font-size: 14px; font-weight: 700; }
     .check-item.marcado .check-check { display: block; }
 
     .check-conteudo { flex: 1; }
-    .check-titulo { font-size: 15px; font-weight: 600; line-height: 1.3; }
+    .check-titulo { font-size: 15px; font-weight: 700; line-height: 1.3; }
     .check-desc { font-size: 13px; color: var(--cinza); margin-top: 3px; line-height: 1.4; }
     .check-item.marcado .check-titulo { color: var(--cinza); text-decoration: line-through; }
 
     .check-progresso {
       background: var(--azul-claro);
-      border-radius: 6px;
+      border-radius: 4px;
       height: 6px;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
       overflow: hidden;
     }
 
     .check-barra {
       height: 100%;
       background: var(--verde);
-      border-radius: 6px;
+      border-radius: 4px;
       transition: width 0.3s;
     }
 
@@ -540,7 +575,8 @@
       font-size: 13px;
       color: var(--cinza);
       text-align: center;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
+      font-weight: 600;
     }
 
     .btn-reset {
@@ -558,21 +594,19 @@
     .orcamento-preview {
       background: #1A3C2A;
       border: 1px solid #2D5C40;
-      border-radius: 14px;
-      padding: 18px;
+      border-radius: 12px;
+      padding: 16px;
       margin-top: 4px;
     }
 
     .orcamento-preview-titulo {
-      font-size: 11px;
-      font-weight: 700;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px;
+      font-weight: 800;
       color: #4ADE80;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.8px;
       text-transform: uppercase;
       margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
     }
 
     .orcamento-texto {
@@ -580,41 +614,50 @@
       line-height: 1.7;
       color: #E2F5E8;
       white-space: pre-line;
-      font-family: -apple-system, sans-serif;
     }
 
     /* Home */
-    .home-boas-vindas {
-      background: linear-gradient(135deg, var(--amarelo) 0%, #E8A000 100%);
-      border-radius: 16px;
-      padding: 22px 20px;
-      margin-bottom: 20px;
+    .home-banner {
+      background: var(--amarelo);
+      border-radius: 12px;
+      padding: 18px 20px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
     }
 
-    .home-bv-titulo {
-      font-size: 20px;
+    .home-banner-icone { font-size: 36px; }
+
+    .home-banner-texto {}
+    .home-banner-titulo {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 22px;
       font-weight: 900;
       color: var(--azul);
-      margin-bottom: 4px;
+      text-transform: uppercase;
+      line-height: 1;
+      margin-bottom: 2px;
     }
 
-    .home-bv-sub {
-      font-size: 14px;
-      color: rgba(10,21,32,0.6);
+    .home-banner-sub {
+      font-size: 13px;
+      color: rgba(13,27,42,0.6);
+      font-weight: 600;
     }
 
     .home-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-bottom: 16px;
+      gap: 10px;
+      margin-bottom: 10px;
     }
 
     .home-card {
-      background: var(--azul-meio);
+      background: var(--azul);
       border: 1px solid var(--azul-claro);
-      border-radius: 14px;
-      padding: 18px 16px;
+      border-radius: 12px;
+      padding: 16px;
       cursor: pointer;
       transition: border-color 0.15s, transform 0.1s;
       display: flex;
@@ -624,36 +667,42 @@
 
     .home-card:active { transform: scale(0.97); border-color: var(--amarelo); }
 
-    .home-card-icone { font-size: 28px; }
-    .home-card-nome { font-size: 14px; font-weight: 700; line-height: 1.2; }
+    .home-card-icone { font-size: 26px; }
+    .home-card-nome {
+      font-size: 14px;
+      font-weight: 800;
+      line-height: 1.2;
+      color: var(--branco);
+    }
+
     .home-card-desc { font-size: 12px; color: var(--cinza); line-height: 1.3; }
 
     .home-card-full {
-      background: var(--azul-meio);
+      background: var(--azul);
       border: 1px solid var(--azul-claro);
-      border-radius: 14px;
-      padding: 18px 16px;
+      border-radius: 12px;
+      padding: 16px;
       cursor: pointer;
       transition: border-color 0.15s, transform 0.1s;
       display: flex;
       align-items: center;
-      gap: 16px;
-      margin-bottom: 12px;
+      gap: 14px;
+      margin-bottom: 10px;
     }
 
     .home-card-full:active { transform: scale(0.98); border-color: var(--amarelo); }
-    .home-card-full .home-card-icone { font-size: 32px; }
+    .home-card-full .home-card-icone { font-size: 28px; }
     .home-card-full-texto { flex: 1; }
     .home-card-full .home-card-nome { font-size: 15px; }
-    .home-card-seta { color: var(--cinza); font-size: 18px; }
+    .home-card-seta { color: var(--amarelo); font-size: 20px; font-weight: 700; }
 
     /* Dica */
     .dica-box {
-      background: rgba(245,196,0,0.08);
+      background: rgba(245,196,0,0.07);
       border: 1px solid rgba(245,196,0,0.2);
-      border-radius: 12px;
-      padding: 14px 16px;
-      margin-top: 16px;
+      border-radius: 8px;
+      padding: 12px 14px;
+      margin-top: 14px;
       font-size: 13px;
       color: var(--cinza-claro);
       line-height: 1.5;
@@ -661,35 +710,51 @@
 
     .dica-box strong { color: var(--amarelo); }
 
+    /* Seção título */
+    .secao-titulo {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 26px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: -0.3px;
+      margin-bottom: 4px;
+      color: var(--branco);
+    }
+
+    .secao-titulo span { color: var(--amarelo); }
+
+    .secao-sub {
+      font-size: 14px;
+      color: var(--cinza);
+      margin-bottom: 18px;
+      line-height: 1.4;
+    }
+
     /* Toast */
     #toast {
       position: fixed;
       bottom: 80px;
       left: 50%;
       transform: translateX(-50%) translateY(20px);
-      background: var(--azul-meio);
+      background: var(--azul);
       border: 1px solid var(--verde);
       color: var(--verde);
       padding: 12px 20px;
-      border-radius: 10px;
+      border-radius: 8px;
       font-size: 14px;
-      font-weight: 600;
+      font-weight: 700;
       opacity: 0;
       transition: opacity 0.2s, transform 0.2s;
       z-index: 999;
       white-space: nowrap;
     }
 
-    #toast.visivel {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-    }
+    #toast.visivel { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-    /* Loading spinner */
     .spinner {
       width: 20px;
       height: 20px;
-      border: 2px solid rgba(10,21,32,0.3);
+      border: 2px solid rgba(13,27,42,0.3);
       border-top-color: var(--azul);
       border-radius: 50%;
       animation: spin 0.6s linear infinite;
@@ -698,31 +763,6 @@
 
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* Seção título */
-    .secao-titulo {
-      font-size: 20px;
-      font-weight: 900;
-      letter-spacing: -0.3px;
-      margin-bottom: 4px;
-    }
-
-    .secao-titulo span { color: var(--amarelo); }
-
-    .secao-sub {
-      font-size: 14px;
-      color: var(--cinza);
-      margin-bottom: 20px;
-      line-height: 1.4;
-    }
-
-    /* Divisor */
-    .divisor {
-      height: 1px;
-      background: var(--azul-claro);
-      margin: 20px 0;
-    }
-
-    /* Responsivo */
     @media (min-width: 480px) {
       .app-conteudo { max-width: 480px; margin: 0 auto; }
     }
@@ -732,40 +772,53 @@
 
 <!-- TELA DE ACESSO -->
 <div id="tela-acesso">
-  <div class="acesso-logo">🐍</div>
-  <h1 class="acesso-titulo">Cobra <span>Certo</span></h1>
-  <p class="acesso-sub">Digite o e-mail que você usou na compra<br>para acessar o app.</p>
+  <div class="acesso-faixa"></div>
+  <div class="acesso-corpo">
+    <div class="acesso-logo">
+      <svg class="svg-capacete" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 32h32v4a2 2 0 01-2 2H10a2 2 0 01-2-2v-4z" fill="#0D1B2A"/>
+        <path d="M24 8C15 8 8 16 8 24v8h32v-8C40 16 33 8 24 8z" fill="#0D1B2A"/>
+        <path d="M18 24v-8a6 6 0 0112 0v8" stroke="#F5C400" stroke-width="2.5" stroke-linecap="round"/>
+        <rect x="6" y="29" width="36" height="5" rx="2" fill="#F5C400"/>
+        <path d="M14 24h20" stroke="#F5C400" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <h1 class="acesso-titulo">COBRA <span>CERTO</span></h1>
+    <p class="acesso-sub">Digite o e-mail da sua compra para acessar o app.</p>
 
-  <div class="acesso-form">
-    <label class="acesso-label">Seu e-mail</label>
-    <input
-      type="email"
-      class="acesso-input"
-      id="input-email"
-      placeholder="seuemail@gmail.com"
-      autocomplete="email"
-      inputmode="email"
-    >
-    <div class="acesso-erro" id="acesso-erro"></div>
-    <button class="btn-primario" id="btn-entrar" onclick="verificarAcesso()">
-      Entrar no app
-    </button>
-    <p class="acesso-rodape">
-      Ainda não tem o Cobra Certo?
-      <a href="https://pay.cakto.com.br/86apqfp_982275" target="_blank">Comprar agora →</a>
-    </p>
+    <div class="acesso-form">
+      <label class="acesso-label">Seu e-mail</label>
+      <input type="email" class="acesso-input" id="input-email"
+        placeholder="seuemail@gmail.com" autocomplete="email" inputmode="email">
+      <div class="acesso-erro" id="acesso-erro"></div>
+      <button class="btn-primario" id="btn-entrar" onclick="verificarAcesso()">
+        Entrar no app
+      </button>
+      <p class="acesso-rodape">
+        Ainda não tem o Cobra Certo?
+        <a href="https://pay.cakto.com.br/86apqfp_982275" target="_blank">Comprar agora →</a>
+      </p>
+    </div>
   </div>
+  <div class="acesso-faixa"></div>
 </div>
 
 <!-- APP PRINCIPAL -->
 <div id="tela-app">
+  <div class="faixa"></div>
   <header class="app-header">
     <div class="header-logo">
-      <div class="header-icone">🐍</div>
-      <div class="header-nome">Cobra <span>Certo</span></div>
+      <svg width="30" height="30" viewBox="0 0 48 48" fill="none">
+        <path d="M8 32h32v4a2 2 0 01-2 2H10a2 2 0 01-2-2v-4z" fill="#0D1B2A"/>
+        <path d="M24 8C15 8 8 16 8 24v8h32v-8C40 16 33 8 24 8z" fill="#0D1B2A"/>
+        <rect x="6" y="29" width="36" height="5" rx="2" fill="#C94F00"/>
+        <path d="M18 24v-8a6 6 0 0112 0v8M14 24h20" stroke="#0D1B2A" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+      <div class="header-nome">COBRA <span>CERTO</span></div>
     </div>
     <button class="btn-sair" onclick="sair()">Sair</button>
   </header>
+  <div class="header-faixa"></div>
 
   <nav class="app-nav">
     <button class="nav-tab ativo" onclick="irPara('home', this)">🏠 Início</button>
@@ -780,9 +833,12 @@
 
     <!-- HOME -->
     <div id="secao-home" class="secao ativa">
-      <div class="home-boas-vindas">
-        <div class="home-bv-titulo">Bora cobrar certo! 💪</div>
-        <div class="home-bv-sub">Escolha uma ferramenta abaixo</div>
+      <div class="home-banner">
+        <div class="home-banner-icone">👷</div>
+        <div class="home-banner-texto">
+          <div class="home-banner-titulo">Bora cobrar certo!</div>
+          <div class="home-banner-sub">Escolha uma ferramenta abaixo</div>
+        </div>
       </div>
 
       <div class="home-grid">
@@ -829,11 +885,10 @@
     <!-- ORÇAMENTO -->
     <div id="secao-orcamento" class="secao">
       <div class="secao-titulo">Calcular <span>Orçamento</span></div>
-      <p class="secao-sub">Preenche os valores do serviço e descobre o preço certo.</p>
+      <p class="secao-sub">Preenche os valores e descobre o preço certo.</p>
 
       <div class="card">
         <div class="card-titulo">Custos do serviço</div>
-
         <div class="campo-grupo">
           <label class="campo-label">Material (R$)</label>
           <div class="campo-prefixo">
@@ -841,15 +896,13 @@
             <input type="number" class="campo-input" id="orc-material" placeholder="0,00" inputmode="decimal" oninput="calcularOrcamento()">
           </div>
         </div>
-
         <div class="campo-grupo">
-          <label class="campo-label">Mão de obra — sua diária × dias (R$)</label>
+          <label class="campo-label">Mão de obra — diária × dias (R$)</label>
           <div class="campo-prefixo">
             <span class="prefixo">R$</span>
             <input type="number" class="campo-input" id="orc-mdo" placeholder="0,00" inputmode="decimal" oninput="calcularOrcamento()">
           </div>
         </div>
-
         <div class="campo-grupo">
           <label class="campo-label">Deslocamento / combustível (R$)</label>
           <div class="campo-prefixo">
@@ -857,7 +910,6 @@
             <input type="number" class="campo-input" id="orc-deslocamento" placeholder="0,00" inputmode="decimal" oninput="calcularOrcamento()">
           </div>
         </div>
-
         <div class="campo-grupo">
           <label class="campo-label">Outros custos (R$)</label>
           <div class="campo-prefixo">
@@ -876,10 +928,7 @@
           </div>
           <input type="range" id="orc-margem" min="10" max="60" value="25" oninput="calcularOrcamento()">
         </div>
-
-        <div class="dica-box">
-          <strong>Dica:</strong> Para serviços simples use 20–25%. Para especializado ou urgente, 30–40%. Nunca abaixo de 15%.
-        </div>
+        <div class="dica-box"><strong>Dica:</strong> Serviço simples: 20–25%. Especializado ou urgente: 30–40%. Nunca abaixo de 15%.</div>
       </div>
 
       <div id="orc-resultado" style="display:none">
@@ -887,62 +936,36 @@
           <div class="resultado-label">Preço mínimo a cobrar</div>
           <div class="resultado-valor" id="orc-preco-final">R$ 0</div>
           <div class="resultado-sub" id="orc-lucro-txt">Lucro: R$ 0</div>
-
           <div class="resultado-detalhe">
-            <div class="detalhe-linha">
-              <span>Material</span>
-              <span id="orc-d-material">R$ 0</span>
-            </div>
-            <div class="detalhe-linha">
-              <span>Mão de obra</span>
-              <span id="orc-d-mdo">R$ 0</span>
-            </div>
-            <div class="detalhe-linha">
-              <span>Deslocamento</span>
-              <span id="orc-d-desloc">R$ 0</span>
-            </div>
-            <div class="detalhe-linha">
-              <span>Outros</span>
-              <span id="orc-d-outros">R$ 0</span>
-            </div>
-            <div class="detalhe-linha">
-              <span>Lucro (<span id="orc-d-perc">25</span>%)</span>
-              <span id="orc-d-lucro">R$ 0</span>
-            </div>
-            <div class="detalhe-linha total">
-              <span>Total</span>
-              <span id="orc-d-total">R$ 0</span>
-            </div>
+            <div class="detalhe-linha"><span>Material</span><span id="orc-d-material">R$ 0</span></div>
+            <div class="detalhe-linha"><span>Mão de obra</span><span id="orc-d-mdo">R$ 0</span></div>
+            <div class="detalhe-linha"><span>Deslocamento</span><span id="orc-d-desloc">R$ 0</span></div>
+            <div class="detalhe-linha"><span>Outros</span><span id="orc-d-outros">R$ 0</span></div>
+            <div class="detalhe-linha"><span>Lucro (<span id="orc-d-perc">25</span>%)</span><span id="orc-d-lucro">R$ 0</span></div>
+            <div class="detalhe-linha total"><span>Total</span><span id="orc-d-total">R$ 0</span></div>
           </div>
         </div>
-
-        <button class="btn-acao verde" onclick="irParaZap()">
-          📲 Gerar orçamento pro WhatsApp
-        </button>
-        <button class="btn-acao outline" onclick="limparOrcamento()">
-          Limpar e recalcular
-        </button>
+        <button class="btn-acao verde" onclick="irParaZap()">📲 Gerar orçamento pro WhatsApp</button>
+        <button class="btn-acao outline" onclick="limparOrcamento()">Limpar e recalcular</button>
       </div>
     </div>
 
     <!-- DIÁRIA -->
     <div id="secao-diaria" class="secao">
       <div class="secao-titulo">Minha <span>Diária</span></div>
-      <p class="secao-sub">Descobre quanto uma diária sua tem que render pra fechar o mês no lucro.</p>
+      <p class="secao-sub">Descobre quanto você precisa cobrar por dia pra fechar o mês no lucro.</p>
 
       <div class="card">
-        <div class="card-titulo">Suas contas mensais</div>
-
+        <div class="card-titulo">Suas metas mensais</div>
         <div class="campo-grupo">
-          <label class="campo-label">Quanto você quer ganhar por mês? (R$)</label>
+          <label class="campo-label">Quanto você quer sobrar por mês? (R$)</label>
           <div class="campo-prefixo">
             <span class="prefixo">R$</span>
             <input type="number" class="campo-input" id="dia-meta" placeholder="3500" inputmode="decimal" oninput="calcularDiaria()">
           </div>
         </div>
-
         <div class="campo-grupo">
-          <label class="campo-label">Gastos fixos mensais — aluguel, conta, mercado (R$)</label>
+          <label class="campo-label">Seus gastos fixos — aluguel, contas, mercado (R$)</label>
           <div class="campo-prefixo">
             <span class="prefixo">R$</span>
             <input type="number" class="campo-input" id="dia-gastos" placeholder="1500" inputmode="decimal" oninput="calcularDiaria()">
@@ -951,8 +974,7 @@
       </div>
 
       <div class="card">
-        <div class="card-titulo">Seus dias de trabalho</div>
-
+        <div class="card-titulo">Dias de trabalho</div>
         <div class="slider-grupo">
           <div class="slider-header">
             <label class="campo-label" style="margin:0">Dias trabalhados por mês</label>
@@ -960,39 +982,20 @@
           </div>
           <input type="range" id="dia-dias" min="10" max="26" value="20" oninput="calcularDiaria()">
         </div>
-
-        <div class="dica-box">
-          <strong>Lembra:</strong> Você não trabalha 30 dias. Desconta domingo, sábado (se não trabalha), feriado e dia que chove. A maioria trabalha 18–22 dias por mês.
-        </div>
+        <div class="dica-box"><strong>Lembra:</strong> Você não trabalha 30 dias. Desconta domingo, feriado e dia que chove. A maioria trabalha 18–22 dias por mês.</div>
       </div>
 
       <div id="dia-resultado" style="display:none">
         <div class="resultado-box">
           <div class="resultado-label">Sua diária mínima</div>
           <div class="resultado-valor" id="dia-valor">R$ 0</div>
-          <div class="resultado-sub" id="dia-sub">Para fechar o mês com R$ 0 de sobra</div>
-
+          <div class="resultado-sub" id="dia-sub">Para sobrar R$ 0 por mês</div>
           <div class="resultado-detalhe">
-            <div class="detalhe-linha">
-              <span>Meta mensal</span>
-              <span id="dia-d-meta">R$ 0</span>
-            </div>
-            <div class="detalhe-linha">
-              <span>Gastos fixos</span>
-              <span id="dia-d-gastos">R$ 0</span>
-            </div>
-            <div class="detalhe-linha">
-              <span>Total a faturar</span>
-              <span id="dia-d-total">R$ 0</span>
-            </div>
-            <div class="detalhe-linha">
-              <span>Dias úteis</span>
-              <span id="dia-d-dias">0 dias</span>
-            </div>
-            <div class="detalhe-linha total">
-              <span>Diária mínima</span>
-              <span id="dia-d-diaria">R$ 0</span>
-            </div>
+            <div class="detalhe-linha"><span>Meta de sobra</span><span id="dia-d-meta">R$ 0</span></div>
+            <div class="detalhe-linha"><span>Gastos fixos</span><span id="dia-d-gastos">R$ 0</span></div>
+            <div class="detalhe-linha"><span>Total a faturar</span><span id="dia-d-total">R$ 0</span></div>
+            <div class="detalhe-linha"><span>Dias úteis</span><span id="dia-d-dias">0 dias</span></div>
+            <div class="detalhe-linha total"><span>Diária mínima</span><span id="dia-d-diaria">R$ 0</span></div>
           </div>
         </div>
       </div>
@@ -1005,17 +1008,14 @@
 
       <div class="card">
         <div class="card-titulo">Dados do serviço</div>
-
         <div class="campo-grupo">
           <label class="campo-label">Seu nome</label>
           <input type="text" class="campo-input" id="zap-nome" placeholder="ex: Carlos Silva" oninput="gerarZap()">
         </div>
-
         <div class="campo-grupo">
           <label class="campo-label">Tipo de serviço</label>
           <input type="text" class="campo-input" id="zap-servico" placeholder="ex: Pintura de sala e quartos" oninput="gerarZap()">
         </div>
-
         <div class="campo-grupo">
           <label class="campo-label">Valor total (R$)</label>
           <div class="campo-prefixo">
@@ -1023,23 +1023,19 @@
             <input type="number" class="campo-input" id="zap-valor" placeholder="0,00" inputmode="decimal" oninput="gerarZap()">
           </div>
         </div>
-
         <div class="campo-grupo">
           <label class="campo-label">Prazo estimado</label>
           <input type="text" class="campo-input" id="zap-prazo" placeholder="ex: 3 dias úteis" oninput="gerarZap()">
         </div>
-
         <div class="campo-grupo">
-          <label class="campo-label">Sinal / entrada (%)</label>
           <div class="slider-grupo" style="margin-bottom:0">
             <div class="slider-header">
-              <span class="campo-label" style="margin:0">Percentual de entrada</span>
+              <label class="campo-label" style="margin:0">Entrada (%)</label>
               <div class="slider-valor" id="zap-sinal-txt">30%</div>
             </div>
             <input type="range" id="zap-sinal" min="0" max="70" value="30" step="5" oninput="gerarZap()">
           </div>
         </div>
-
         <div class="campo-grupo">
           <label class="campo-label">Validade da proposta</label>
           <input type="text" class="campo-input" id="zap-validade" placeholder="ex: 5 dias" oninput="gerarZap()" value="5 dias">
@@ -1051,13 +1047,8 @@
           <div class="orcamento-preview-titulo">📲 Prévia da mensagem</div>
           <div class="orcamento-texto" id="zap-texto"></div>
         </div>
-
-        <button class="btn-acao verde" onclick="copiarZap()">
-          📋 Copiar mensagem
-        </button>
-        <button class="btn-acao outline" onclick="enviarZap()">
-          📤 Abrir no WhatsApp
-        </button>
+        <button class="btn-acao verde" onclick="copiarZap()">📋 Copiar mensagem</button>
+        <button class="btn-acao outline" onclick="enviarZap()">📤 Abrir no WhatsApp</button>
       </div>
     </div>
 
@@ -1068,7 +1059,7 @@
 
       <div class="resposta-card">
         <div class="resposta-numero">Resposta 1 — Quando pedem desconto</div>
-        <div class="resposta-situacao">Cliente: "Nossa, ficou caro. Não tem como fazer mais barato?"</div>
+        <div class="resposta-situacao">Cliente: "Não tem como fazer mais barato?"</div>
         <div class="resposta-texto" id="resp1">Entendo, [nome do cliente]. Esse preço já tá no limite pra eu entregar com qualidade. Se eu abaixar, vou ter que cortar em alguma coisa — e aí o serviço não fica do jeito que você merece. O que posso fazer é dividir em [X] vezes pra caber no seu bolso. O que você acha?</div>
         <button class="btn-copiar" onclick="copiarResposta('resp1', this)">📋 Copiar resposta</button>
       </div>
@@ -1081,9 +1072,9 @@
       </div>
 
       <div class="resposta-card">
-        <div class="resposta-numero">Resposta 3 — Quando o cliente quer tirar material</div>
+        <div class="resposta-numero">Resposta 3 — Quando o cliente quer comprar o material</div>
         <div class="resposta-situacao">Cliente: "E se eu comprar o material, fica mais barato?"</div>
-        <div class="resposta-texto" id="resp3">Posso sim trabalhar com o material de você. Mas fica o aviso: se o material vier com problema — quantidade errada, qualidade diferente — o prazo muda e pode ter custo extra. Se você quiser, faço uma proposta só de mão de obra: R$ [valor]. Fica mais simples pra todo mundo.</div>
+        <div class="resposta-texto" id="resp3">Posso sim trabalhar com o material de você. Mas fica o aviso: se o material vier com problema — quantidade errada, qualidade diferente — o prazo muda e pode ter custo extra. Se quiser, faço uma proposta só de mão de obra: R$ [valor]. Fica mais simples pra todo mundo.</div>
         <button class="btn-copiar" onclick="copiarResposta('resp3', this)">📋 Copiar resposta</button>
       </div>
 
@@ -1099,30 +1090,23 @@
     <div id="secao-checklist" class="secao">
       <div class="secao-titulo"><span>Checklist</span> antes do preço</div>
       <p class="secao-sub">Marca tudo antes de mandar o orçamento. Não esquece nenhum custo.</p>
-
       <div class="check-status" id="check-status">0 de 8 itens verificados</div>
-      <div class="check-progresso">
-        <div class="check-barra" id="check-barra" style="width:0%"></div>
-      </div>
-
+      <div class="check-progresso"><div class="check-barra" id="check-barra" style="width:0%"></div></div>
       <div id="check-lista"></div>
-
       <button class="btn-reset" onclick="resetChecklist()">↺ Resetar checklist</button>
     </div>
 
-  </div><!-- fim app-conteudo -->
-</div><!-- fim tela-app -->
+  </div>
+</div>
 
 <div id="toast"></div>
 
 <script>
-// ── CONFIG ──
 const API_BASE = '/api';
 const CHECKOUT_URL = 'https://pay.cakto.com.br/86apqfp_982275';
 
-// ── CHECKLIST DATA ──
 const CHECKLIST_ITEMS = [
-  { titulo: 'Material necessário', desc: 'Listei todo material, com quantidade + 10% de sobra' },
+  { titulo: 'Material necessário', desc: 'Listei todo material com quantidade + 10% de sobra' },
   { titulo: 'Minha mão de obra', desc: 'Calculei os dias e multipliquei pela minha diária' },
   { titulo: 'Ajudante / subcontratado', desc: 'Incluí custo de ajudante se precisar' },
   { titulo: 'Deslocamento', desc: 'Somei combustível ou passagem de ida e volta' },
@@ -1132,41 +1116,31 @@ const CHECKLIST_ITEMS = [
   { titulo: 'Prazo realista', desc: 'O prazo que vou oferecer é possível mesmo, sem aperto' },
 ];
 
-// ── ACESSO ──
 async function verificarAcesso() {
   const email = document.getElementById('input-email').value.trim().toLowerCase();
   const erro = document.getElementById('acesso-erro');
   const btn = document.getElementById('btn-entrar');
-
-  if (!email || !email.includes('@')) {
-    mostrarErro('Digite um e-mail válido.');
-    return;
-  }
-
+  if (!email || !email.includes('@')) { mostrarErro('Digite um e-mail válido.'); return; }
   btn.disabled = true;
   btn.innerHTML = '<span class="spinner"></span>';
   erro.classList.remove('visivel');
-
   try {
     const res = await fetch(`${API_BASE}/verificar`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email })
     });
-
     const data = await res.json();
-
     if (data.acesso) {
       localStorage.setItem('cc_email', email);
       localStorage.setItem('cc_acesso', '1');
       abrirApp(email);
     } else {
-      mostrarErro(`E-mail não encontrado. Verifique se digitou certo ou <a href="${CHECKOUT_URL}" target="_blank" style="color:#F87171">compre aqui</a>.`);
+      mostrarErro(`E-mail não encontrado. Verifique se digitou certo ou <a href="${CHECKOUT_URL}" target="_blank" style="color:#FCA5A5">compre aqui</a>.`);
       btn.disabled = false;
       btn.innerHTML = 'Entrar no app';
     }
   } catch (e) {
-    // modo fallback: erro de rede, tenta localStorage
     const emailSalvo = localStorage.getItem('cc_email');
     if (emailSalvo === email && localStorage.getItem('cc_acesso') === '1') {
       abrirApp(email);
@@ -1197,20 +1171,15 @@ function sair() {
   document.getElementById('input-email').value = '';
 }
 
-// auto-login se já acessou
 window.addEventListener('DOMContentLoaded', () => {
   if (localStorage.getItem('cc_acesso') === '1') {
-    const email = localStorage.getItem('cc_email') || '';
-    abrirApp(email);
+    abrirApp(localStorage.getItem('cc_email') || '');
   }
-
-  // enter no input
   document.getElementById('input-email').addEventListener('keydown', e => {
     if (e.key === 'Enter') verificarAcesso();
   });
 });
 
-// ── NAVEGAÇÃO ──
 function irPara(secao, tab) {
   document.querySelectorAll('.secao').forEach(s => s.classList.remove('ativa'));
   document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('ativo'));
@@ -1219,25 +1188,17 @@ function irPara(secao, tab) {
   document.querySelector('.app-conteudo').scrollTop = 0;
 }
 
-// ── CALCULADORA DE ORÇAMENTO ──
 function calcularOrcamento() {
   const material = parseFloat(document.getElementById('orc-material').value) || 0;
   const mdo = parseFloat(document.getElementById('orc-mdo').value) || 0;
   const deslocamento = parseFloat(document.getElementById('orc-deslocamento').value) || 0;
   const outros = parseFloat(document.getElementById('orc-outros').value) || 0;
   const margem = parseInt(document.getElementById('orc-margem').value);
-
   document.getElementById('orc-margem-txt').textContent = margem + '%';
-
   const custoTotal = material + mdo + deslocamento + outros;
-  if (custoTotal === 0) {
-    document.getElementById('orc-resultado').style.display = 'none';
-    return;
-  }
-
+  if (custoTotal === 0) { document.getElementById('orc-resultado').style.display = 'none'; return; }
   const lucro = custoTotal * (margem / 100);
   const total = custoTotal + lucro;
-
   document.getElementById('orc-resultado').style.display = 'block';
   document.getElementById('orc-preco-final').textContent = fmt(total);
   document.getElementById('orc-lucro-txt').textContent = `Lucro: ${fmt(lucro)}`;
@@ -1251,42 +1212,34 @@ function calcularOrcamento() {
 }
 
 function limparOrcamento() {
-  ['orc-material','orc-mdo','orc-deslocamento','orc-outros'].forEach(id => {
-    document.getElementById(id).value = '';
-  });
+  ['orc-material','orc-mdo','orc-deslocamento','orc-outros'].forEach(id => document.getElementById(id).value = '');
   document.getElementById('orc-margem').value = 25;
   document.getElementById('orc-margem-txt').textContent = '25%';
   document.getElementById('orc-resultado').style.display = 'none';
 }
 
 function irParaZap() {
-  const total = parseFloat(document.getElementById('orc-d-total').textContent.replace('R$ ','').replace('.','').replace(',','.')) || 0;
-  if (total > 0) {
-    document.getElementById('zap-valor').value = total.toFixed(2);
+  const totalEl = document.getElementById('orc-d-total');
+  if (totalEl) {
+    const v = totalEl.textContent.replace('R$ ','').replace('.','').replace(',','.');
+    const num = parseFloat(v);
+    if (num > 0) document.getElementById('zap-valor').value = num.toFixed(2);
   }
   irPara('zap', document.querySelectorAll('.nav-tab')[3]);
   gerarZap();
 }
 
-// ── CALCULADORA DE DIÁRIA ──
 function calcularDiaria() {
   const meta = parseFloat(document.getElementById('dia-meta').value) || 0;
   const gastos = parseFloat(document.getElementById('dia-gastos').value) || 0;
   const dias = parseInt(document.getElementById('dia-dias').value);
-
   document.getElementById('dia-dias-txt').textContent = dias + ' dias';
-
-  if (meta === 0 && gastos === 0) {
-    document.getElementById('dia-resultado').style.display = 'none';
-    return;
-  }
-
+  if (meta === 0 && gastos === 0) { document.getElementById('dia-resultado').style.display = 'none'; return; }
   const totalFaturar = meta + gastos;
   const diaria = totalFaturar / dias;
-
   document.getElementById('dia-resultado').style.display = 'block';
   document.getElementById('dia-valor').textContent = fmt(diaria);
-  document.getElementById('dia-sub').textContent = `Para fechar o mês com ${fmt(meta)} de sobra`;
+  document.getElementById('dia-sub').textContent = `Para sobrar ${fmt(meta)} por mês`;
   document.getElementById('dia-d-meta').textContent = fmt(meta);
   document.getElementById('dia-d-gastos').textContent = fmt(gastos);
   document.getElementById('dia-d-total').textContent = fmt(totalFaturar);
@@ -1294,7 +1247,6 @@ function calcularDiaria() {
   document.getElementById('dia-d-diaria').textContent = fmt(diaria);
 }
 
-// ── GERADOR ZAP ──
 function gerarZap() {
   const nome = document.getElementById('zap-nome').value.trim();
   const servico = document.getElementById('zap-servico').value.trim();
@@ -1302,17 +1254,10 @@ function gerarZap() {
   const prazo = document.getElementById('zap-prazo').value.trim();
   const sinalPerc = parseInt(document.getElementById('zap-sinal').value);
   const validade = document.getElementById('zap-validade').value.trim();
-
   document.getElementById('zap-sinal-txt').textContent = sinalPerc + '%';
-
-  if (!servico && valor === 0) {
-    document.getElementById('zap-preview').style.display = 'none';
-    return;
-  }
-
+  if (!servico && valor === 0) { document.getElementById('zap-preview').style.display = 'none'; return; }
   const sinalValor = valor * (sinalPerc / 100);
   const restante = valor - sinalValor;
-
   let msg = `Olá! Segue o orçamento${nome ? ' — ' + nome : ''}:\n\n`;
   msg += `📋 *ORÇAMENTO*\n`;
   if (servico) msg += `Serviço: ${servico}\n`;
@@ -1325,63 +1270,44 @@ function gerarZap() {
   }
   if (validade) msg += `\n⏳ Proposta válida por: ${validade}\n`;
   msg += `\nQualquer dúvida, pode me chamar!`;
-
   document.getElementById('zap-texto').textContent = msg;
   document.getElementById('zap-preview').style.display = 'block';
 }
 
 function copiarZap() {
-  const texto = document.getElementById('zap-texto').textContent;
-  navigator.clipboard.writeText(texto).then(() => mostrarToast('Mensagem copiada! ✓'));
+  navigator.clipboard.writeText(document.getElementById('zap-texto').textContent)
+    .then(() => mostrarToast('Mensagem copiada! ✓'));
 }
 
 function enviarZap() {
-  const texto = document.getElementById('zap-texto').textContent;
-  const url = 'https://wa.me/?text=' + encodeURIComponent(texto);
-  window.open(url, '_blank');
+  window.open('https://wa.me/?text=' + encodeURIComponent(document.getElementById('zap-texto').textContent), '_blank');
 }
 
-// ── TÁ CARO ──
 function copiarResposta(id, btn) {
-  const texto = document.getElementById(id).textContent;
-  navigator.clipboard.writeText(texto).then(() => {
+  navigator.clipboard.writeText(document.getElementById(id).textContent).then(() => {
     btn.textContent = '✓ Copiado!';
     btn.classList.add('copiado');
-    setTimeout(() => {
-      btn.textContent = '📋 Copiar resposta';
-      btn.classList.remove('copiado');
-    }, 2000);
+    setTimeout(() => { btn.textContent = '📋 Copiar resposta'; btn.classList.remove('copiado'); }, 2000);
   });
 }
 
-// ── CHECKLIST ──
 let checkState = JSON.parse(localStorage.getItem('cc_check') || '{}');
 
 function renderChecklist() {
   const lista = document.getElementById('check-lista');
   lista.innerHTML = '';
   let marcados = 0;
-
   CHECKLIST_ITEMS.forEach((item, i) => {
     const marcado = !!checkState[i];
     if (marcado) marcados++;
-
     const div = document.createElement('div');
     div.className = 'check-item' + (marcado ? ' marcado' : '');
     div.onclick = () => toggleCheck(i);
-    div.innerHTML = `
-      <div class="check-box"><span class="check-check">✓</span></div>
-      <div class="check-conteudo">
-        <div class="check-titulo">${item.titulo}</div>
-        <div class="check-desc">${item.desc}</div>
-      </div>
-    `;
+    div.innerHTML = `<div class="check-box"><span class="check-check">✓</span></div><div class="check-conteudo"><div class="check-titulo">${item.titulo}</div><div class="check-desc">${item.desc}</div></div>`;
     lista.appendChild(div);
   });
-
   const total = CHECKLIST_ITEMS.length;
-  const perc = Math.round((marcados / total) * 100);
-  document.getElementById('check-barra').style.width = perc + '%';
+  document.getElementById('check-barra').style.width = Math.round((marcados/total)*100) + '%';
   document.getElementById('check-status').textContent = `${marcados} de ${total} itens verificados`;
 }
 
@@ -1397,7 +1323,6 @@ function resetChecklist() {
   renderChecklist();
 }
 
-// ── UTILS ──
 function fmt(valor) {
   return 'R$ ' + valor.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
