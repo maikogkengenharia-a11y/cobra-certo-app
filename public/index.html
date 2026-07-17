@@ -885,33 +885,31 @@
     <!-- ORÇAMENTO -->
     <div id="secao-orcamento" class="secao">
       <div class="secao-titulo">Calcular <span>Orçamento</span></div>
-      <p class="secao-sub">Preenche os valores e descobre o preço certo.</p>
+      <p class="secao-sub">Preenche o que você vai gastar + quanto quer ganhar. O preço a cobrar aparece na hora.</p>
 
       <div class="card">
-        <div class="card-titulo">Custos do serviço</div>
+        <div class="card-titulo">📦 O que você vai gastar nesse serviço</div>
+
         <div class="campo-grupo">
-          <label class="campo-label">Material (R$)</label>
+          <label class="campo-label">Material (tinta, cano, fio, tijolo...) — R$</label>
           <div class="campo-prefixo">
             <span class="prefixo">R$</span>
             <input type="number" class="campo-input" id="orc-material" placeholder="0,00" inputmode="decimal" oninput="calcularOrcamento()">
           </div>
+          <div style="font-size:12px;color:var(--cinza);margin-top:5px;">Coloca o valor do material que você vai comprar pra esse serviço. Se o cliente compra, deixa em 0.</div>
         </div>
+
         <div class="campo-grupo">
-          <label class="campo-label">Mão de obra — diária × dias (R$)</label>
-          <div class="campo-prefixo">
-            <span class="prefixo">R$</span>
-            <input type="number" class="campo-input" id="orc-mdo" placeholder="0,00" inputmode="decimal" oninput="calcularOrcamento()">
-          </div>
-        </div>
-        <div class="campo-grupo">
-          <label class="campo-label">Deslocamento / combustível (R$)</label>
+          <label class="campo-label">Deslocamento / combustível — R$</label>
           <div class="campo-prefixo">
             <span class="prefixo">R$</span>
             <input type="number" class="campo-input" id="orc-deslocamento" placeholder="0,00" inputmode="decimal" oninput="calcularOrcamento()">
           </div>
+          <div style="font-size:12px;color:var(--cinza);margin-top:5px;">Gasolina, ônibus ou uber de ida e volta pra obra.</div>
         </div>
+
         <div class="campo-grupo">
-          <label class="campo-label">Outros custos (R$)</label>
+          <label class="campo-label">Outros custos (ajudante, ferramenta, etc.) — R$</label>
           <div class="campo-prefixo">
             <span class="prefixo">R$</span>
             <input type="number" class="campo-input" id="orc-outros" placeholder="0,00" inputmode="decimal" oninput="calcularOrcamento()">
@@ -920,29 +918,50 @@
       </div>
 
       <div class="card">
-        <div class="card-titulo">Sua margem de lucro</div>
+        <div class="card-titulo">💪 Sua mão de obra</div>
+
+        <div class="campo-grupo">
+          <label class="campo-label">Quantos dias você vai trabalhar nesse serviço?</label>
+          <input type="number" class="campo-input" id="orc-dias" placeholder="ex: 3" inputmode="decimal" oninput="calcularOrcamento()">
+        </div>
+
+        <div class="campo-grupo">
+          <label class="campo-label">Quanto você quer ganhar por dia? — R$</label>
+          <div class="campo-prefixo">
+            <span class="prefixo">R$</span>
+            <input type="number" class="campo-input" id="orc-diaria" placeholder="ex: 250" inputmode="decimal" oninput="calcularOrcamento()">
+          </div>
+          <div style="font-size:12px;color:var(--cinza);margin-top:5px;">Não sabe sua diária? Usa a calculadora <strong style="color:var(--amarelo)">⏱ Diária</strong> primeiro.</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-titulo">💰 Sua margem de lucro</div>
         <div class="slider-grupo">
           <div class="slider-header">
-            <label class="campo-label" style="margin:0">Lucro em cima dos custos</label>
-            <div class="slider-valor" id="orc-margem-txt">25%</div>
+            <label class="campo-label" style="margin:0">% de lucro em cima dos custos totais</label>
+            <div class="slider-valor" id="orc-margem-txt">20%</div>
           </div>
-          <input type="range" id="orc-margem" min="10" max="60" value="25" oninput="calcularOrcamento()">
+          <input type="range" id="orc-margem" min="0" max="100" value="20" oninput="calcularOrcamento()">
         </div>
-        <div class="dica-box"><strong>Dica:</strong> Serviço simples: 20–25%. Especializado ou urgente: 30–40%. Nunca abaixo de 15%.</div>
+        <div class="dica-box">
+          <strong>Como funciona:</strong> Esse % é adicionado em cima de tudo (material + mão de obra + gastos) pra você ter uma reserva caso apareça imprevisto, material extra ou retrabalho.<br><br>
+          <strong>Sugestão:</strong> Serviço simples → 10–20%. Com risco ou urgência → 20–30%. Se quiser só cobrir os custos sem reserva, deixa em 0%.
+        </div>
       </div>
 
       <div id="orc-resultado" style="display:none">
         <div class="resultado-box">
           <div class="resultado-label">Preço mínimo a cobrar</div>
           <div class="resultado-valor" id="orc-preco-final">R$ 0</div>
-          <div class="resultado-sub" id="orc-lucro-txt">Lucro: R$ 0</div>
+          <div class="resultado-sub" id="orc-lucro-txt">Reserva de lucro: R$ 0</div>
           <div class="resultado-detalhe">
             <div class="detalhe-linha"><span>Material</span><span id="orc-d-material">R$ 0</span></div>
-            <div class="detalhe-linha"><span>Mão de obra</span><span id="orc-d-mdo">R$ 0</span></div>
+            <div class="detalhe-linha"><span>Mão de obra (<span id="orc-d-dias-txt">0</span> dias × <span id="orc-d-diaria-txt">R$ 0</span>)</span><span id="orc-d-mdo">R$ 0</span></div>
             <div class="detalhe-linha"><span>Deslocamento</span><span id="orc-d-desloc">R$ 0</span></div>
             <div class="detalhe-linha"><span>Outros</span><span id="orc-d-outros">R$ 0</span></div>
-            <div class="detalhe-linha"><span>Lucro (<span id="orc-d-perc">25</span>%)</span><span id="orc-d-lucro">R$ 0</span></div>
-            <div class="detalhe-linha total"><span>Total</span><span id="orc-d-total">R$ 0</span></div>
+            <div class="detalhe-linha"><span>Reserva de lucro (<span id="orc-d-perc">20</span>%)</span><span id="orc-d-lucro">R$ 0</span></div>
+            <div class="detalhe-linha total"><span>Total a cobrar</span><span id="orc-d-total">R$ 0</span></div>
           </div>
         </div>
         <button class="btn-acao verde" onclick="irParaZap()">📲 Gerar orçamento pro WhatsApp</button>
@@ -1190,19 +1209,28 @@ function irPara(secao, tab) {
 
 function calcularOrcamento() {
   const material = parseFloat(document.getElementById('orc-material').value) || 0;
-  const mdo = parseFloat(document.getElementById('orc-mdo').value) || 0;
+  const dias = parseFloat(document.getElementById('orc-dias').value) || 0;
+  const diaria = parseFloat(document.getElementById('orc-diaria').value) || 0;
   const deslocamento = parseFloat(document.getElementById('orc-deslocamento').value) || 0;
   const outros = parseFloat(document.getElementById('orc-outros').value) || 0;
   const margem = parseInt(document.getElementById('orc-margem').value);
+
   document.getElementById('orc-margem-txt').textContent = margem + '%';
+
+  const mdo = dias * diaria;
   const custoTotal = material + mdo + deslocamento + outros;
+
   if (custoTotal === 0) { document.getElementById('orc-resultado').style.display = 'none'; return; }
+
   const lucro = custoTotal * (margem / 100);
   const total = custoTotal + lucro;
+
   document.getElementById('orc-resultado').style.display = 'block';
   document.getElementById('orc-preco-final').textContent = fmt(total);
-  document.getElementById('orc-lucro-txt').textContent = `Lucro: ${fmt(lucro)}`;
+  document.getElementById('orc-lucro-txt').textContent = `Reserva de lucro: ${fmt(lucro)}`;
   document.getElementById('orc-d-material').textContent = fmt(material);
+  document.getElementById('orc-d-dias-txt').textContent = dias || '0';
+  document.getElementById('orc-d-diaria-txt').textContent = fmt(diaria);
   document.getElementById('orc-d-mdo').textContent = fmt(mdo);
   document.getElementById('orc-d-desloc').textContent = fmt(deslocamento);
   document.getElementById('orc-d-outros').textContent = fmt(outros);
@@ -1212,9 +1240,9 @@ function calcularOrcamento() {
 }
 
 function limparOrcamento() {
-  ['orc-material','orc-mdo','orc-deslocamento','orc-outros'].forEach(id => document.getElementById(id).value = '');
-  document.getElementById('orc-margem').value = 25;
-  document.getElementById('orc-margem-txt').textContent = '25%';
+  ['orc-material','orc-dias','orc-diaria','orc-deslocamento','orc-outros'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('orc-margem').value = 20;
+  document.getElementById('orc-margem-txt').textContent = '20%';
   document.getElementById('orc-resultado').style.display = 'none';
 }
 
