@@ -827,6 +827,7 @@
     <button class="nav-tab" onclick="irPara('zap', this)">📲 Zap</button>
     <button class="nav-tab" onclick="irPara('tacaro', this)">💬 Tá caro</button>
     <button class="nav-tab" onclick="irPara('checklist', this)">✅ Checklist</button>
+    <button class="nav-tab" onclick="irPara('bonus', this)">🎁 Bônus</button>
   </nav>
 
   <div class="app-conteudo">
@@ -877,6 +878,15 @@
         <div class="home-card-full-texto">
           <div class="home-card-nome">Checklist antes do orçamento</div>
           <div class="home-card-desc">Não esquece nenhum custo</div>
+        </div>
+        <div class="home-card-seta">›</div>
+      </div>
+
+      <div class="home-card-full" onclick="irPara('bonus', document.querySelectorAll('.nav-tab')[6])" style="border-color: rgba(245,196,0,0.4); background: rgba(245,196,0,0.06);">
+        <div class="home-card-icone">🎁</div>
+        <div class="home-card-full-texto">
+          <div class="home-card-nome" style="color:var(--amarelo)">Seu Bônus — Guia PDF</div>
+          <div class="home-card-desc">7 mapas mentais de precificação pra baixar</div>
         </div>
         <div class="home-card-seta">›</div>
       </div>
@@ -1113,6 +1123,78 @@
       <div class="check-progresso"><div class="check-barra" id="check-barra" style="width:0%"></div></div>
       <div id="check-lista"></div>
       <button class="btn-reset" onclick="resetChecklist()">↺ Resetar checklist</button>
+    </div>
+
+    <!-- BÔNUS -->
+    <div id="secao-bonus" class="secao">
+      <div class="secao-titulo">Seu <span>Bônus</span></div>
+      <p class="secao-sub">Incluído na sua compra — baixe quando quiser.</p>
+
+      <div class="card" style="border-color: rgba(245,196,0,0.3); background: rgba(245,196,0,0.06);">
+        <div style="font-size:48px; text-align:center; margin-bottom:12px;">🎁</div>
+        <div class="card-titulo" style="text-align:center; font-size:18px;">Guia de Precificação — PDF Completo</div>
+        <p style="font-size:14px; color:var(--cinza-claro); text-align:center; line-height:1.6; margin-bottom:20px;">
+          7 mapas mentais visuais sobre precificação e orçamento. Feito pra ler no celular, direto ao ponto — sem enrolação.
+        </p>
+
+        <div style="display:flex; flex-direction:column; gap:10px; margin-bottom:20px;">
+          <div style="display:flex; gap:12px; align-items:center; background:var(--azul); border-radius:10px; padding:12px 14px;">
+            <span style="font-size:22px;">📊</span>
+            <div>
+              <div style="font-size:14px; font-weight:700; color:var(--branco);">Mapa 1 — Custo Real do Serviço</div>
+              <div style="font-size:12px; color:var(--cinza);">Tudo que entra no preço antes de falar com o cliente</div>
+            </div>
+          </div>
+          <div style="display:flex; gap:12px; align-items:center; background:var(--azul); border-radius:10px; padding:12px 14px;">
+            <span style="font-size:22px;">💰</span>
+            <div>
+              <div style="font-size:14px; font-weight:700; color:var(--branco);">Mapa 2 — Como Embutir seu Lucro</div>
+              <div style="font-size:12px; color:var(--cinza);">A margem certa pra sobrar no fim do mês</div>
+            </div>
+          </div>
+          <div style="display:flex; gap:12px; align-items:center; background:var(--azul); border-radius:10px; padding:12px 14px;">
+            <span style="font-size:22px;">🧱</span>
+            <div>
+              <div style="font-size:14px; font-weight:700; color:var(--branco);">Mapa 3 — Material x Mão de Obra</div>
+              <div style="font-size:12px; color:var(--cinza);">Nunca mais banque material do bolso</div>
+            </div>
+          </div>
+          <div style="display:flex; gap:12px; align-items:center; background:var(--azul); border-radius:10px; padding:12px 14px;">
+            <span style="font-size:22px;">⏱</span>
+            <div>
+              <div style="font-size:14px; font-weight:700; color:var(--branco);">Mapa 4 — Preço da Hora Trabalhada</div>
+              <div style="font-size:12px; color:var(--cinza);">Descubra quanto vale sua hora de verdade</div>
+            </div>
+          </div>
+          <div style="display:flex; gap:12px; align-items:center; background:var(--azul); border-radius:10px; padding:12px 14px;">
+            <span style="font-size:22px;">💬</span>
+            <div>
+              <div style="font-size:14px; font-weight:700; color:var(--branco);">Mapa 5 — Respondendo o "Tá Caro"</div>
+              <div style="font-size:12px; color:var(--cinza);">Frases prontas pra segurar o preço</div>
+            </div>
+          </div>
+          <div style="display:flex; gap:12px; align-items:center; background:var(--azul); border-radius:10px; padding:12px 14px;">
+            <span style="font-size:22px;">📋</span>
+            <div>
+              <div style="font-size:14px; font-weight:700; color:var(--branco);">Mapa 6 — Orçamento que Fecha Venda</div>
+              <div style="font-size:12px; color:var(--cinza);">O modelo que faz o cliente dizer sim</div>
+            </div>
+          </div>
+          <div style="display:flex; gap:12px; align-items:center; background:var(--azul); border-radius:10px; padding:12px 14px;">
+            <span style="font-size:22px;">📈</span>
+            <div>
+              <div style="font-size:14px; font-weight:700; color:var(--branco);">Mapa 7 — Reajuste com Cliente Antigo</div>
+              <div style="font-size:12px; color:var(--cinza);">Como aumentar o preço sem clima ruim</div>
+            </div>
+          </div>
+        </div>
+
+        <a href="https://drive.google.com/drive/folders/1Ytt6VllryQqXMf_Up-leRME0t2FHzT0O?usp=drive_link" target="_blank"
+          style="display:flex; align-items:center; justify-content:center; gap:10px; width:100%; padding:16px; background:var(--amarelo); color:var(--azul); font-family:'Barlow Condensed',sans-serif; font-size:20px; font-weight:900; text-transform:uppercase; border:none; border-radius:10px; cursor:pointer; text-decoration:none; letter-spacing:0.3px;">
+          📥 Baixar o Guia PDF
+        </a>
+        <p style="font-size:12px; color:var(--cinza); text-align:center; margin-top:10px;">Abre no Google Drive — salva no seu celular</p>
+      </div>
     </div>
 
   </div>
